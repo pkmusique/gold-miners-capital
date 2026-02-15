@@ -1,1 +1,0 @@
-# gold-miners-capital
