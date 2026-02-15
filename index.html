@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gold Miners Capital</title>
+<style>
+body {margin:0;font-family:Arial, sans-serif;background:#0B0F19;color:white;}
+header {background:linear-gradient(90deg,#FFD700,#C9A227);padding:20px;text-align:center;font-weight:bold;color:#0B0F19;}
+.container {padding:20px;}
+.card {background:#111827;padding:20px;margin:15px 0;border-radius:10px;}
+button {background:linear-gradient(90deg,#FFD700,#C9A227);border:none;padding:10px 15px;font-weight:bold;cursor:pointer;border-radius:5px;margin-right:10px;}
+input {padding:10px;width:100%;margin:5px 0 10px 0;}
+footer {text-align:center;padding:20px;font-size:12px;color:#aaa;}
+</style>
+</head>
+<body>
+
+<header>
+Gold Miners Capital (Pty) Ltd<br>
+Sandton, Johannesburg, Gauteng
+</header>
+
+<div class="container">
+
+<div id="auth">
+<div class="card">
+<h2>Register</h2>
+<input type="text" id="name" placeholder="Full Name">
+<input type="password" id="password" placeholder="Password">
+<button onclick="register()">Create Account</button>
+</div>
+
+<div class="card">
+<h2>Login</h2>
+<input type="text" id="loginName" placeholder="Full Name">
+<input type="password" id="loginPass" placeholder="Password">
+<button onclick="login()">Login</button>
+</div>
+</div>
+
+<div id="dashboard" style="display:none;">
+<div class="card">
+<h2>Portfolio Dashboard</h2>
+<p>Total Capital: R <span id="capital">10000</span></p>
+<p>Total Return: R <span id="return">0</span></p>
+<button onclick="simulate()">Simulate Growth</button>
+<button onclick="logout()">Logout</button>
+</div>
+</div>
+
+</div>
+
+<footer>
+Reg No: 2024/458721/07 | Financial Growth Simulation Platform<br>
+© 2026 Gold Miners Capital
+</footer>
+
+<script>
+let capital = 10000;
+let totalReturn = 0;
+
+function register(){
+    const name = document.getElementById("name").value;
+    const pass = document.getElementById("password").value;
+    if(name && pass){
+        localStorage.setItem("user", JSON.stringify({name,pass}));
+        alert("Account created successfully.");
+    }
+}
+
+function login(){
+    const name = document.getElementById("loginName").value;
+    const pass = document.getElementById("loginPass").value;
+    const user = JSON.parse(localStorage.getItem("user"));
+    if(user && user.name === name && user.pass === pass){
+        document.getElementById("auth").style.display="none";
+        document.getElementById("dashboard").style.display="block";
+    } else {
+        alert("Invalid credentials.");
+    }
+}
+
+function simulate(){
+    let growth = Math.floor(Math.random()*500)+100;
+    totalReturn += growth;
+    capital += growth;
+    document.getElementById("capital").innerText = capital;
+    document.getElementById("return").innerText = totalReturn;
+}
+
+function logout(){
+    document.getElementById("dashboard").style.display="none";
+    document.getElementById("auth").style.display="block";
+}
+</script>
+
+</body>
+</html>
